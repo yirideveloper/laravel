@@ -11,7 +11,7 @@ class Category extends Model {
 
 	public function discussions()
 	{
-		return $this->hasMany(Models::className(Discussion::class));
+		return $this->hasMany('Discussions');
 	}
 
 }
