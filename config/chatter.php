@@ -17,6 +17,7 @@ return [
         'home' => 'forums',
         'discussion' => 'discussion',
         'category' => 'category',
+        'post' => 'posts',
         'register' => 'register',
         'login' => 'login'
     ],
@@ -106,7 +107,8 @@ return [
     |   *relative_url_to_profile*: Users may want to click on another users 
     |       image to view their profile. If a users profile page is at 
     |       /profile/{username} you will add '/profile/{username}' or 
-    |       if it is /profile/{id}, you will specify '/profile/{id}'
+    |       if it is /profile/{id}, you will specify '/profile/{id}'. You are
+    |       only able to specify 1 url parameter.
     |       Tip: leave this blank and no link will be generated
     |
     |   *relative_url_to_image_assets*: This is where your image assets are
@@ -209,6 +211,45 @@ return [
 
     'paginate' => [
         'num_of_results' => 10,
-    ]
+    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Route Middleware
+    |--------------------------------------------------------------------------
+    |
+    | Configure the middleware applied to specific routes across Chatter. This
+    | gives you full control over middleware throughout your application. You
+    | can allow public access to everything or limit to specific routes.
+    |
+    | Authentication is enforced on create, store, edit, update, destroy routes,
+    | no need to add 'auth' to these routes.
+    |
+    */
+
+    'middleware' => [
+        'global' => ['web'],
+        'home' => [],
+        'discussion' => [
+            'index' => [],
+            'show' => [],
+            'create' => [],
+            'store' => [],
+            'destroy' => [],
+            'edit' => [],
+            'update' => []
+        ],
+        'post' => [
+            'index' => [],
+            'show' => [],
+            'create' => [],
+            'store' => [],
+            'destroy' => [],
+            'edit' => [],
+            'update' => []
+        ]
+        'category' => [
+            'show' => [],
+        ]
+    ]
 ];

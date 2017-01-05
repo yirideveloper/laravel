@@ -49,7 +49,7 @@
 					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> New {{ Config::get('chatter.titles.discussion') }}</button> 
 					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> All {{ Config::get('chatter.titles.discussion') }}</a>
 					<ul class="nav nav-pills nav-stacked">
-						<?php $categories = DevDojo\Chatter\Models\Category::all(); ?>
+						<?php $categories = DevDojo\Chatter\Models\Models::category()->all(); ?>
 						@foreach($categories as $category)
 							<li><a href="/{{ Config::get('chatter.routes.home') }}/{{ Config::get('chatter.routes.category') }}/{{ $category->slug }}"><div class="chatter-box" style="background-color:{{ $category->color }}"></div> {{ $category->name }}</a></li>
 						@endforeach
@@ -77,7 +77,7 @@
 					        			
 					        			@else
 					        				
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= Chatter::stringToColorCode($discussion->user->email) ?>">
+					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->email) ?>">
 					        					{{ strtoupper(substr($discussion->user->email, 0, 1)) }}
 					        				</span>
 					        				
