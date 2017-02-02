@@ -4,7 +4,10 @@ namespace DevDojo\Chatter\Controllers;
 
 use Auth;
 use Carbon\Carbon;
+use DevDojo\Chatter\Events\ChatterAfterNewDiscussion;
+use DevDojo\Chatter\Events\ChatterBeforeNewDiscussion;
 use DevDojo\Chatter\Models\Models;
+use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Validator;
@@ -60,9 +63,7 @@ class ChatterDiscussionController extends Controller
             'chatter_category_id' => 'required',
         ]);
 
-        if (function_exists('chatter_before_new_discussion')) {
-            chatter_before_new_discussion($request, $validator);
-        }
+        Event::fire(new ChatterBeforeNewDiscussion($request, $validator));
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -129,9 +130,8 @@ class ChatterDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            if (function_exists('chatter_after_new_discussion')) {
-                chatter_after_new_discussion($request);
-            }
+            Event::fire(new ChatterAfterNewDiscussion($request));
+
             $chatter_alert = [
                 'chatter_alert_type' => 'success',
                 'chatter_alert'      => 'Successfully created new '.config('chatter.titles.discussion').'.',
@@ -177,10 +177,6 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion = Models::discussion()->where('slug', '=', $slug)->first();
-        if (!$discussion) {
-            abort(404);
-        }
-
         $discussion_category = Models::category()->find($discussion->chatter_category_id);
         if ($category != $discussion_category->slug) {
             return redirect(config('chatter.routes.home').'/'.config('chatter.routes.discussion').'/'.$discussion_category->slug.'/'.$discussion->slug);
