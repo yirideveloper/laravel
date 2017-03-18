@@ -12,7 +12,6 @@ use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Illuminate\Support\Facades\Mail;
-use Purifier;
 use Validator;
 
 class ChatterPostController extends Controller
@@ -159,7 +158,7 @@ class ChatterPostController extends Controller
 
         $post = Models::post()->find($id);
         if (!Auth::guest() && (Auth::user()->id == $post->user_id)) {
-            $post->body = Purifier::clean($request->body);
+            $post->body = strip_tags($request->body);
             $post->save();
 
             $discussion = Models::discussion()->find($post->chatter_discussion_id);
