@@ -27,7 +27,8 @@ class AddMarkdownAndLockToChatterPosts extends Migration
     public function down()
     {
         Schema::table('chatter_post', function ($table) {
-            $table->dropColumn(['markdown', 'locked']);
+            $table->dropColumn('markdown');
+            $table->dropColumn('locked');
         });
     }
 }
