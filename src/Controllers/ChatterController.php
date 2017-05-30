@@ -3,7 +3,6 @@
 namespace DevDojo\Chatter\Controllers;
 
 use Auth;
-use DevDojo\Chatter\Helpers\ChatterHelper as Helper;
 use DevDojo\Chatter\Models\Models;
 use Illuminate\Routing\Controller as Controller;
 
@@ -21,11 +20,7 @@ class ChatterController extends Controller
             }
         }
 
-        $categories = Models::category()->get();
-        $categoriesMenu = Helper::categoriesMenu(array_filter($categories->toArray(), function ($item) {
-            return $item['parent_id'] === null;
-        }));
-
+        $categories = Models::category()->all();
         $chatter_editor = config('chatter.editor');
 
         if ($chatter_editor == 'simplemde') {
@@ -33,7 +28,7 @@ class ChatterController extends Controller
             \App::register('GrahamCampbell\Markdown\MarkdownServiceProvider');
         }
 
-        return view('chatter::home', compact('discussions', 'categories', 'categoriesMenu', 'chatter_editor'));
+        return view('chatter::home', compact('discussions', 'categories', 'chatter_editor'));
     }
 
     public function login()
