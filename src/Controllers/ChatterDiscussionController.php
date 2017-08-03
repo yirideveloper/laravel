@@ -135,7 +135,7 @@ class ChatterDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            Event::fire(new ChatterAfterNewDiscussion($request));
+            Event::fire(new ChatterAfterNewDiscussion($request, $discussion));
             if (function_exists('chatter_after_new_discussion')) {
                 chatter_after_new_discussion($request);
             }
@@ -203,7 +203,7 @@ class ChatterDiscussionController extends Controller
         }
 
         $discussion->increment('views');
-        
+
         return view('chatter::discussion', compact('discussion', 'posts', 'chatter_editor'));
     }
 
