@@ -90,7 +90,7 @@ class ChatterPostController extends Controller
         }
 
         if ($new_post->id) {
-            Event::fire(new ChatterAfterNewResponse($request, $new_post));
+            Event::fire(new ChatterAfterNewResponse($request));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
             }
