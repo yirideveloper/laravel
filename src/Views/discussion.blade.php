@@ -430,10 +430,10 @@
 
 		// logic for when a new discussion needs to be created from the slideUp
         @if(Config::get('chatter.sidebar_in_discussion_view'))
-            $('.chatter-close, #cancel_discussion').click(function(){
+            $('.chatter-close').click(function(){
                 $('#new_discussion_in_discussion_view').slideUp();
             });
-            $('#new_discussion_btn').click(function(){
+            $('#new_discussion_btn, #cancel_discussion').click(function(){
                 @if(Auth::guest())
                     window.location.href = "/{{ Config::get('chatter.routes.home') }}/login";
                 @else

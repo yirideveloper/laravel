@@ -220,10 +220,10 @@
 <script>
 	$('document').ready(function(){
 
-		$('.chatter-close, #cancel_discussion').click(function(){
+		$('.chatter-close').click(function(){
 			$('#new_discussion').slideUp();
 		});
-		$('#new_discussion_btn').click(function(){
+		$('#new_discussion_btn, #cancel_discussion').click(function(){
 			@if(Auth::guest())
 				window.location.href = "{{ route('login') }}";
 			@else
