@@ -90,7 +90,10 @@ class ChatterPostController extends Controller
         }
 
         if ($new_post->id) {
-            Event::fire(new ChatterAfterNewResponse($request));
+            $discussion->last_reply_at = $discussion->freshTimestamp();
+            $discussion->save();
+            
+            Event::fire(new ChatterAfterNewResponse($request, $new_post));
             if (function_exists('chatter_after_new_response')) {
                 chatter_after_new_response($request);
             }
@@ -207,13 +210,8 @@ class ChatterPostController extends Controller
         }
 
         if ($post->discussion->posts()->oldest()->first()->id === $post->id) {
-            if(config('chatter.soft_deletes')) {
-                $post->discussion->posts()->delete();
-                $post->discussion()->delete();
-            } else {
-                $post->discussion->posts()->forceDelete();
-                $post->discussion()->forceDelete();
-            }
+            $post->discussion->posts()->delete();
+            $post->discussion()->delete();
 
             return redirect('/'.config('chatter.routes.home'))->with([
                 'chatter_alert_type' => 'success',

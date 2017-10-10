@@ -232,6 +232,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default orderby
+    |--------------------------------------------------------------------------
+    |
+    | This determines how the Discussions will be ordered on the home screen
+    |
+    */
+
+    'order_by' => [
+        'posts' => [
+            'order' => 'created_at',
+            'by' => 'ASC'
+        ],
+        'discussions' => [
+            'order' => 'last_reply_at',
+            'by' => 'DESC'
+        ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Email Notification Settings
     |--------------------------------------------------------------------------
     |
@@ -246,19 +266,6 @@ return [
         'enabled' => false,
         'view'    => 'chatter::email',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Use Soft Deletes
-    |--------------------------------------------------------------------------
-    |
-    | Setting this to true will mean when a post gets deleted the `deleted_at`
-    | date gets set but the actual row in the database does not get deleted.
-    | This is useful for forum moderation and history retention
-    |
-    */
-
-    'soft_deletes' => false,
 
     /*
     |--------------------------------------------------------------------------

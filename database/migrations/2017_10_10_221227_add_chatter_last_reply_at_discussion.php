@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddChatterSoftDeletes extends Migration
+class AddChatterLastReplyAtDiscussion extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AddChatterSoftDeletes extends Migration
     public function up()
     {
         Schema::table('chatter_discussion', function (Blueprint $table) {
-            $table->softDeletes();
-        });
-        Schema::table('chatter_post', function (Blueprint $table) {
-            $table->softDeletes();
+            $table->timestamp('last_reply_at')->useCurrent();
         });
     }
 
