@@ -21,22 +21,6 @@ return [
         'login'      => 'login',
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Forum Titles
-    |--------------------------------------------------------------------------
-    |
-    | These are some default titles (words) that will be used throughout your
-    | forum. You can change these to whatever you would like :)
-    |
-    */
-
-    'titles' => [
-        'discussion'  => 'Discussion',
-        'discussions' => 'Discussions',
-        'category'    => 'Category',
-    ],
-
    /*
     |--------------------------------------------------------------------------
     | The main headline and description of your forum
@@ -153,24 +137,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Alert Message Titles
-    |--------------------------------------------------------------------------
-    |
-    | When a user successfully adds a new discussion or they do something wrong
-    | they will get an alert message. Based on the alert message there is a
-    | specific title message for every alert, which are defined below.
-    |
-    */
-
-    'alert_messages' => [
-        'success' => 'Well done!',
-        'info'    => 'Heads Up!',
-        'warning' => 'Wuh Oh!',
-        'danger'  => 'Oh Snap!',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | A Few security measures to prevent spam on your forum
     |--------------------------------------------------------------------------
     |
@@ -232,6 +198,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default orderby
+    |--------------------------------------------------------------------------
+    |
+    | This determines how the Discussions will be ordered on the home screen
+    |
+    */
+
+    'order_by' => [
+        'posts' => [
+            'order' => 'created_at',
+            'by' => 'ASC'
+        ],
+        'discussions' => [
+            'order' => 'last_reply_at',
+            'by' => 'DESC'
+        ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Email Notification Settings
     |--------------------------------------------------------------------------
     |
@@ -246,6 +232,19 @@ return [
         'enabled' => false,
         'view'    => 'chatter::email',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Use Soft Deletes
+    |--------------------------------------------------------------------------
+    |
+    | Setting this to true will mean when a post gets deleted the `deleted_at`
+    | date gets set but the actual row in the database does not get deleted.
+    | This is useful for forum moderation and history retention
+    |
+    */
+
+    'soft_deletes' => false,
 
     /*
     |--------------------------------------------------------------------------
