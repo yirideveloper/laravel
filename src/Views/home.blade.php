@@ -61,7 +61,7 @@
 	    	<div class="col-md-3 left-column">
 	    		<!-- SIDEBAR -->
 	    		<div class="chatter_sidebar">
-					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i> @lang('chatter::messages.discussion.new')</button>
+					<button class="btn btn-primary" id="new_discussion_btn"><i class="chatter-new"></i>@lang('chatter::messages.discussion.new')</button>
 					<a href="/{{ Config::get('chatter.routes.home') }}"><i class="chatter-bubble"></i> @lang('chatter::messages.discussion.all')</a>
           {!! $categoriesMenu !!}
 				</div>
@@ -87,8 +87,8 @@
 
 					        			@else
 
-					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}) ?>">
-					        					{{ strtoupper(substr($discussion->user->{Config::get('chatter.user.database_field_with_user_name')}, 0, 1)) }}
+					        				<span class="chatter_avatar_circle" style="background-color:#<?= \DevDojo\Chatter\Helpers\ChatterHelper::stringToColorCode($discussion->user->email) ?>">
+					        					{{ strtoupper(substr($discussion->user->email, 0, 1)) }}
 					        				</span>
 
 					        			@endif
@@ -141,16 +141,18 @@
 
 	            <div class="col-md-4">
 		            <!-- CATEGORY -->
-			            <select id="chatter_category_id" class="form-control" name="chatter_category_id">
-			            	<option value="">@lang('chatter::messages.editor.select')</option>
-				            @foreach($categories as $category)
-				            	@if(old('chatter_category_id') == $category->id)
-				            		<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-				            	@else
-				            		<option value="{{ $category->id }}">{{ $category->name }}</option>
-				            	@endif
-				            @endforeach
-			            </select>
+					<select id="chatter_category_id" class="form-control" name="chatter_category_id">
+						<option value="">@lang('chatter::messages.editor.select')</option>
+						@foreach($categories as $category)
+							@if(old('chatter_category_id') == $category->id)
+								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+							@elseif(!empty($category_id) && $category_id == $category->id)
+								<option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+							@else
+								<option value="{{ $category->id }}">{{ $category->name }}</option>
+							@endif
+						@endforeach
+					</select>
 		        </div>
 
 		        <div class="col-md-1">
@@ -174,7 +176,7 @@
 
             <div id="new_discussion_footer">
             	<input type='text' id="color" name="color" /><span class="select_color_text">@lang('chatter::messages.editor.select_color_text')</span>
-            	<button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i> @lang('chatter::messages.discussion.create')</button>
+            	<button id="submit_discussion" class="btn btn-success pull-right"><i class="chatter-new"></i>@lang('chatter::messages.discussion.create')</button>
             	<a href="/{{ Config::get('chatter.routes.home') }}" class="btn btn-default pull-right" id="cancel_discussion">@lang('chatter::messages.words.cancel')</a>
             	<div style="clear:both"></div>
             </div>
