@@ -117,6 +117,11 @@ $ php artisan db:seed --class ChatterTableSeeder
 - [ ] Create tests
 - [ ] Use Localization (translations)
 
+
+## Known issues
+
+If you're experiencing issues with your chatter installation, refer to [Known issues](https://github.com/Chatter-Laravel/core/labels/known-issues). If you couldn't solve the issue, please submit a new ticket.
+
 ## Customization
 
 ### Configuration
@@ -136,3 +141,4 @@ All the view components used by Chatter are published to your project by the pre
     <img src="https://raw.githubusercontent.com/chatter-laravel/core/master/public/assets/images/laravel-chatter-forum-3.png" alt="Laravel chatter forum" style="max-width:600px;"><br>
     <img src="https://raw.githubusercontent.com/chatter-laravel/core/master/public/assets/images/laravel-chatter-forum-mobile.png" alt="Laravel chatter forum" style="max-width:600px;">
 </p>
+
