@@ -2,7 +2,6 @@
 
 namespace Chatter\Core\Models;
 
-use Chatter\Core\Helpers\ChatterHelper;
 use Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +18,6 @@ class UserResource extends JsonResource
         return [
             'username' => Str::title($this->forum_visible_name),
             'avatar' => $this->forum_avatar,
-            'profile_url' => ChatterHelper::userLink($this),
         ];
     }
 }
